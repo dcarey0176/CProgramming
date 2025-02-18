@@ -28,8 +28,7 @@ int main (){
     // Do the math
     square_perimeter = square_side * 4;
     printf("The perimeter of a square with side %d is %d\n", square_side, square_perimeter);
-    printf("The area of a square with side length %d and %d is: %d", square_side1, square_side2, area);
-
+    printf("The area of a square with side length %d and %d is: %d\n", square_side1, square_side2, area);
 
     return 0;
 }
