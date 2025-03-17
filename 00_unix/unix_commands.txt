@@ -1,0 +1,17 @@
+mkdir <folder name> - make directory.
+
+ls - list. display the content in the directory.
+
+cd <directory name> - change directory.
+
+code <file name> - creates a file and opens it in a text editor.
+
+pwd - print working directory.
+
+gcc <file name> - compiler.
+
+./ <file name> - command to run the program
+
+green files - Untracked files
+
+git . - adds all untracked files to be tracked
