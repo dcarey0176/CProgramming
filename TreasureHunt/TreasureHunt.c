@@ -28,30 +28,14 @@ int main(){
 int getBet(void){
     int bet = 0;
     printf("Enter the amount you want to bet (0 to stop): ");
-    scanf("%d", &bet);
+    scanf(" %d", &bet);
+    while (bet < 0){
+        printf("The bet should be positive. Try again.\n");
+        printf("Enter the amount you want to bet (0 to stop): ");
+        scanf(" %d", &bet);
+    }
     return bet;
 }
-
-void clearArray(int *arr, int size){
-    for(int i = 0; i < size; i++){
-        arr[i] = 0;
-    } 
-    puts("");
-}
-
-void printArray(int *arr, int size){
-    for(int i = 0; i < size; i++){
-        printf("%d ", arr[i]);
-    } 
-    puts("");
-}
-
-void shuffleArray(int *arr, int size){
-    int random = rand() % size;
-    arr[random] = 1;
-}
-
-
 
 int getGuess(void){
     int guess = 0;
@@ -60,7 +44,7 @@ int getGuess(void){
     while(guess <= 0 || guess > SIZE){
         printf("There are %d holes. Try again.\n", SIZE);
         printf("Guess the hole where the treasure is hidden...\n");
-        scanf("%d", &guess);
+        scanf(" %d", &guess);
     }
     return guess;
 }
@@ -68,13 +52,26 @@ int getGuess(void){
 int getBal(void){
     int balance = 0;
     printf("----Enter your starting cash balance----: ");
-    scanf("%d", &balance);
-    while(balance <= 0 ){
+    scanf(" %d", &balance);
+    while(balance <= 0){
         printf("The balance should be positive. Try again.\n");
         printf("----Enter your starting cash balance----: ");
-        scanf("%d", &balance);
+        scanf(" %d", &balance);
+        puts("");
     }
     return balance;
+}
+
+void clearArray(int *arr, int size){
+    for(int i = 0; i < size; i++){
+        arr[i] = 0;
+    } 
+}
+
+
+void shuffleArray(int *arr, int size){
+    int random = rand() % size;
+    arr[random] = 1;
 }
 
 
@@ -82,25 +79,26 @@ void treasureHunt(int *arr, int size, int *balance, int bet, int player_guess){
     while (bet != 0){
         clearArray(arr, SIZE);
         shuffleArray(arr, SIZE);
-        while(bet < 0 || bet > *balance){
-            printf("Bet cannot be negative or exceed your balance\n");
+        while(bet > *balance){
+            printf("Not enough money. Try again!\n");
             bet = getBet();
         }
+            
         if (bet == 0){
-            printf("Thanks for playing!");
             break;
         }
-        
+        puts("");
+    
         int player_guess = getGuess();
         if (arr[player_guess-1] == 1){
             *balance += bet;
             printf("You found the treasure! The holes are as follows: %d %d %d\n", arr[0], arr[1], arr[2]);
-            printf("Your cash balance is now = %d\n", *balance);
+            printf("Your cash balance is now = %d\n\n", *balance);
         }
         else{
             printf("No treasure! The holes are as follows: %d %d %d\n", arr[0], arr[1], arr[2]);
             *balance -= bet;
-            printf("Your cash balance is now = %d\n", *balance);
+            printf("Your cash balance is now = %d\n\n", *balance);
         }
         if (*balance == 0){
             printf("Sorry you're out of cash. Better luck next time! Thank you for playing.\n");
